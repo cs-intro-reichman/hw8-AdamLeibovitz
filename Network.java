@@ -30,7 +30,7 @@ public class Network {
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
         for (int i = 0; i < userCount; i++) {
-            if (users[i].getName().equals(name)) {
+            if (users[i].getName().equalsIgnoreCase(name)) {
                 return users[i];
             }
         }
@@ -54,7 +54,7 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if (getUser(name1)!=null && getUser(name2)!=null) {
+        if (getUser(name1)!=null && getUser(name2)!=null && name1 != name2) {
             if (getUser(name1).addFollowee(name2)) {
                 return true;
             }
@@ -69,12 +69,12 @@ public class Network {
             return null;
         }
         int n = 0;
-        if (users[n].getName().equals(name)) {
+        if (users[n].getName().equalsIgnoreCase(name)) {
             n++;
         }
         int mutualCount = users[n].countMutual(getUser(name));
         for (int i = 0; i < userCount; i++) {
-            if (!users[i].getName().equals(name) && users[i].countMutual(getUser(name)) > mutualCount) {
+            if (!users[i].getName().equalsIgnoreCase(name) && users[i].countMutual(getUser(name)) > mutualCount) {
             n = i;
             mutualCount = users[n].countMutual(getUser(name));
             } 
@@ -113,7 +113,10 @@ public class Network {
     public String toString() {
         String str = "Network:\n";
         for (int i = 0; i < userCount; i++) {
-            str += users[i].toString() + "\n";
+            str += users[i].toString();
+            if (i <= userCount) {
+                str += "\n";
+            }
         }
         return str;
     }

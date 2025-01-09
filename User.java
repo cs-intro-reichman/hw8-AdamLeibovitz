@@ -45,7 +45,7 @@
     public boolean follows(String name) {
         for (int i = 0; i < follows.length; i++) {
             if (follows[i] != null) {
-                if (follows[i].equals(name)) {
+                if (follows[i].equalsIgnoreCase(name)) {
                     return true;
                 }
             }
@@ -74,18 +74,16 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         boolean found = false;
-        if (follows[fCount-1].equals(name)) {
+        if (follows[fCount-1].equalsIgnoreCase(name)) {
             follows[fCount-1] = null;
             found = true;
             fCount--;
         }
         else {
             for (int i = 0; i < fCount; i++) {
-                if (!found) {
-                    if (follows[i].equals(name)) {
+                if (!found && follows[i].equalsIgnoreCase(name)) {
                         found = true;
                         fCount--;
-                    }
                 }
                 if (found) {
                     follows[i] = follows[i+1];
