@@ -74,13 +74,16 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         boolean found = false;
+        if (name == null) {
+            return false;
+        }
         if (follows[fCount-1].equalsIgnoreCase(name)) {
             follows[fCount-1] = null;
             found = true;
             fCount--;
         }
         else {
-            for (int i = 0; i < fCount; i++) {
+            for (int i = 0; i < Math.min(fCount,maxfCount-1); i++) {
                 if (!found && follows[i].equalsIgnoreCase(name)) {
                         found = true;
                         fCount--;
