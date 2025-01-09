@@ -20,12 +20,10 @@
      *  to allow testing the toString and follows methods, before implementing other methods. */
     public User(String name, boolean gettingStarted) {
         this(name);
-        if (gettingStarted) {
-            follows[0] = "Foo";
-            follows[1] = "Bar";
-            follows[2] = "Baz";
-            fCount = 3;
-        }
+        follows[0] = "Foo";
+        follows[1] = "Bar";
+        follows[2] = "Baz";
+        fCount = 3;
     }
 
     /** Returns the name of this user. */
@@ -85,16 +83,19 @@
             fCount--;
         }
         else {
-            for (int i = 0; i < Math.min(fCount,maxfCount-1); i++) {
+            for (int i = 0; i < fCount; i++) {
                 if (!found) {
                     if (follows[i].equalsIgnoreCase(name)) {
                         found = true;
                         fCount--;
                     }   
                 }
-                if (found) {
+                if (found && i+1 < maxfCount) {
                     follows[i] = follows[i+1];
                     follows[i+1] = null;
+                }
+                else if (found && i+1 == maxfCount) {
+                    follows[i] = null;
                 }
                 
             }
