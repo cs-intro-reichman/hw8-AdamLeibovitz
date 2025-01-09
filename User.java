@@ -74,7 +74,7 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         boolean found = false;
-        if (name == null) {
+        if (name == null || fCount == 0) {
             return false;
         }
         if (follows[fCount-1].equalsIgnoreCase(name)) {
